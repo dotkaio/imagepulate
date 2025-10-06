@@ -1,0 +1,237 @@
+en: # English
+  Language: Language
+  Video Segmentation: Video Segmentation
+  Layer Divider: Layer Divider
+  Upload Input Video: Upload Input Video
+  Prompt image with Box & Point: Prompt image with Box & Point
+  Preview: Preview
+  Model: Model
+  Filter Modes: Filter Modes
+  Solid Color: Solid Color
+  Pixelize: Pixelize
+  Pixel Size: Pixel Size
+  invert mask: invert mask
+  GENERATE PREVIEW: GENERATE PREVIEW
+  GENERATE VIDEO: GENERATE VIDEO
+  Output Video: Output Video
+  Downloadable Output File: Downloadable Output File
+  📁 Open Output folder: 📁 Open Output folder
+  Frame Index: Frame Index
+  Automatic Segmentation: Automatic Segmentation
+  Image Input Mode: Image Input Mode
+  Box Prompt: Box Prompt
+  Mast Parameters: Mask Parameters
+  multimask_output: multimask_output
+  Output images will be shown here: Output images will be shown here
+  Generated psd file: Generated psd file
+  📁 Open PSD folder: 📁 Open PSD folder
+  Video File Format: Video File Format
+  Transparent Color (Background Remover): Transparent Color (Background Remover)
+  Extracting frames...: Extracting frames...
+  GENERATE PSD: GENERATE PSD
+  There's no prompt data: There's no prompt data. If you just changed the frame, please remove the drawn points manually with the eraser button and redraw. Sorry, this is a known bug.
+  If you don't know how to prompt: If you don't know how to prompt, see [PROMPT_GUIDE.md](https://github.com/jhj0517/sam2-playground/blob/master/docs/PROMPT_GUIDE.md).
+
+ko: # Korean
+  Language: 언어
+  Video Segmentation: 영상 분할
+  Layer Divider: 레이어 분리기
+  Upload Input Video: 영상을 업로드 하세요
+  Prompt image with Box & Point: 프롬프트 (박스 & 포인트)
+  Preview: 프리뷰
+  Model: 모델
+  Filter Modes: 필터 모드
+  Solid Color: 단색 (배경 제거용)
+  Pixelize: 모자이크
+  Pixel Size: 모자이크 픽셀 크기
+  invert mask: 분할 영역 반전
+  GENERATE PREVIEW: 프리뷰 생성
+  GENERATE VIDEO: 영상 생성
+  Output Video: 영상 결과물
+  Downloadable Output File: 영상 파일
+  📁 Open Output folder: 📁 출력 폴더 열기
+  Frame Index: 동영상 프레임 수
+  Automatic Segmentation: 자동 분할
+  Image Input Mode: 프롬프트 모드
+  Box Prompt: 박스 프롬프트
+  Mast Parameters: 마스크 파라미터
+  multimask_output: multimask_output
+  Output images will be shown here: 분할된 이미지들
+  Generated psd file: 생성된 psd 파일
+  📁 Open PSD folder: 📁 PSD 출력 폴더 열기
+  Video File Format: 영상 파일 형식
+  Transparent Color (Background Remover): 투명색 (배경 제거용)
+  Extracting frames...: 영상 프레임 추출 중..
+  GENERATE PSD: PSD 파일 생성
+  There's no prompt data: 프롬프트 데이터가 없습니다. 방금 막 프레임을 바꾸셨다면, 지우개 버튼으로 프롬프트를 수동으로 지우신 후 다시 그려주세요. 죄송합니다, 아직 고치지 못한 버그입니다.
+  If you don't know how to prompt: 프롬프트를 어떻게 넣는지 모르신다면, [PROMPT_GUIDE.md](https://github.com/jhj0517/sam2-playground/blob/master/docs/PROMPT_GUIDE.md)를 봐주세요.
+
+ja: # Japanese
+  Language: 言語
+  Video Segmentation: Video Segmentation
+  Layer Divider: Layer Divider
+  Upload Input Video: Upload Input Video
+  Prompt image with Box & Point: Prompt image with Box & Point
+  Preview: Preview
+  Model: Model
+  Filter Modes: Filter Modes
+  Solid Color: Solid Color
+  Pixelize: Pixelize
+  Pixel Size: Pixel Size
+  invert mask: invert mask
+  GENERATE PREVIEW: GENERATE PREVIEW
+  GENERATE VIDEO: GENERATE VIDEO
+  Output Video: Output Video
+  Downloadable Output File: Downloadable Output File
+  📁 Open Output folder: 📁 Open Output folder
+  Frame Index: Frame Index
+  Automatic Segmentation: Automatic Segmentation
+  Image Input Mode: Image Input Mode
+  Box Prompt: Box Prompt
+  Mast Parameters: Mask Parameters
+  multimask_output: multimask_output
+  Output images will be shown here: Output images will be shown here
+  Generated psd file: Generated psd file
+  📁 Open PSD folder: 📁 Open PSD folder
+  Video File Format: Video File Format
+  Transparent Color (Background Remover): Transparent Color (Background Remover)
+  Extracting frames...: Extracting frames...
+  GENERATE PSD: GENERATE PSD
+  There's no prompt data: There's no prompt data. If you just changed the frame, please remove the drawn points manually with the eraser button and redraw. Sorry, this is a known bug.
+  If you don't know how to prompt: If you don't know how to prompt, see [PROMPT_GUIDE.md](https://github.com/jhj0517/sam2-playground/blob/master/docs/PROMPT_GUIDE.md).
+
+es: # Spanish
+  Language: Idioma
+  Video Segmentation: Video Segmentation
+  Layer Divider: Layer Divider
+  Upload Input Video: Upload Input Video
+  Prompt image with Box & Point: Prompt image with Box & Point
+  Preview: Preview
+  Model: Model
+  Filter Modes: Filter Modes
+  Solid Color: Solid Color
+  Pixelize: Pixelize
+  Pixel Size: Pixel Size
+  invert mask: invert mask
+  GENERATE PREVIEW: GENERATE PREVIEW
+  GENERATE VIDEO: GENERATE VIDEO
+  Output Video: Output Video
+  Downloadable Output File: Downloadable Output File
+  📁 Open Output folder: 📁 Open Output folder
+  Frame Index: Frame Index
+  Automatic Segmentation: Automatic Segmentation
+  Image Input Mode: Image Input Mode
+  Box Prompt: Box Prompt
+  Mast Parameters: Mask Parameters
+  multimask_output: multimask_output
+  Output images will be shown here: Output images will be shown here
+  Generated psd file: Generated psd file
+  📁 Open PSD folder: 📁 Open PSD folder
+  Video File Format: Video File Format
+  Transparent Color (Background Remover): Transparent Color (Background Remover)
+  Extracting frames...: Extracting frames...
+  GENERATE PSD: GENERATE PSD
+  There's no prompt data: There's no prompt data. If you just changed the frame, please remove the drawn points manually with the eraser button and redraw. Sorry, this is a known bug.
+  If you don't know how to prompt: If you don't know how to prompt, see [PROMPT_GUIDE.md](https://github.com/jhj0517/sam2-playground/blob/master/docs/PROMPT_GUIDE.md).
+
+fr: # French
+  Language: Langue
+  Video Segmentation: Video Segmentation
+  Layer Divider: Layer Divider
+  Upload Input Video: Upload Input Video
+  Prompt image with Box & Point: Prompt image with Box & Point
+  Preview: Preview
+  Model: Model
+  Filter Modes: Filter Modes
+  Solid Color: Solid Color
+  Pixelize: Pixelize
+  Pixel Size: Pixel Size
+  invert mask: invert mask
+  GENERATE PREVIEW: GENERATE PREVIEW
+  GENERATE VIDEO: GENERATE VIDEO
+  Output Video: Output Video
+  Downloadable Output File: Downloadable Output File
+  📁 Open Output folder: 📁 Open Output folder
+  Frame Index: Frame Index
+  Automatic Segmentation: Automatic Segmentation
+  Image Input Mode: Image Input Mode
+  Box Prompt: Box Prompt
+  Mast Parameters: Mask Parameters
+  multimask_output: multimask_output
+  Output images will be shown here: Output images will be shown here
+  Generated psd file: Generated psd file
+  📁 Open PSD folder: 📁 Open PSD folder
+  Video File Format: Video File Format
+  Transparent Color (Background Remover): Transparent Color (Background Remover)
+  Extracting frames...: Extracting frames...
+  GENERATE PSD: GENERATE PSD
+  There's no prompt data: There's no prompt data. If you just changed the frame, please remove the drawn points manually with the eraser button and redraw. Sorry, this is a known bug.
+  If you don't know how to prompt: If you don't know how to prompt, see [PROMPT_GUIDE.md](https://github.com/jhj0517/sam2-playground/blob/master/docs/PROMPT_GUIDE.md).
+
+de: # German
+  Language: Sprache
+  Video Segmentation: Video Segmentation
+  Layer Divider: Layer Divider
+  Upload Input Video: Upload Input Video
+  Prompt image with Box & Point: Prompt image with Box & Point
+  Preview: Preview
+  Model: Model
+  Filter Modes: Filter Modes
+  Solid Color: Solid Color
+  Pixelize: Pixelize
+  Pixel Size: Pixel Size
+  invert mask: invert mask
+  GENERATE PREVIEW: GENERATE PREVIEW
+  GENERATE VIDEO: GENERATE VIDEO
+  Output Video: Output Video
+  Downloadable Output File: Downloadable Output File
+  📁 Open Output folder: 📁 Open Output folder
+  Frame Index: Frame Index
+  Automatic Segmentation: Automatic Segmentation
+  Image Input Mode: Image Input Mode
+  Box Prompt: Box Prompt
+  Mast Parameters: Mask Parameters
+  multimask_output: multimask_output
+  Output images will be shown here: Output images will be shown here
+  Generated psd file: Generated psd file
+  📁 Open PSD folder: 📁 Open PSD folder
+  Video File Format: Video File Format
+  Transparent Color (Background Remover): Transparent Color (Background Remover)
+  Extracting frames...: Extracting frames...
+  GENERATE PSD: GENERATE PSD
+  There's no prompt data: There's no prompt data. If you just changed the frame, please remove the drawn points manually with the eraser button and redraw. Sorry, this is a known bug.
+  If you don't know how to prompt: If you don't know how to prompt, see [PROMPT_GUIDE.md](https://github.com/jhj0517/sam2-playground/blob/master/docs/PROMPT_GUIDE.md).
+
+zh: # Chinese
+  Language: 语言
+  Video Segmentation: Video Segmentation
+  Layer Divider: Layer Divider
+  Upload Input Video: Upload Input Video
+  Prompt image with Box & Point: Prompt image with Box & Point
+  Preview: Preview
+  Model: Model
+  Filter Modes: Filter Modes
+  Solid Color: Solid Color
+  Pixelize: Pixelize
+  Pixel Size: Pixel Size
+  invert mask: invert mask
+  GENERATE PREVIEW: GENERATE PREVIEW
+  GENERATE VIDEO: GENERATE VIDEO
+  Output Video: Output Video
+  Downloadable Output File: Downloadable Output File
+  📁 Open Output folder: 📁 Open Output folder
+  Frame Index: Frame Index
+  Automatic Segmentation: Automatic Segmentation
+  Image Input Mode: Image Input Mode
+  Box Prompt: Box Prompt
+  Mast Parameters: Mask Parameters
+  multimask_output: multimask_output
+  Output images will be shown here: Output images will be shown here
+  Generated psd file: Generated psd file
+  📁 Open PSD folder: 📁 Open PSD folder
+  Video File Format: Video File Format
+  Transparent Color (Background Remover): Transparent Color (Background Remover)
+  Extracting frames...: Extracting frames...
+  GENERATE PSD: GENERATE PSD
+  There's no prompt data: There's no prompt data. If you just changed the frame, please remove the drawn points manually with the eraser button and redraw. Sorry, this is a known bug.
+  If you don't know how to prompt: If you don't know how to prompt, see [PROMPT_GUIDE.md](https://github.com/jhj0517/sam2-playground/blob/master/docs/PROMPT_GUIDE.md).
