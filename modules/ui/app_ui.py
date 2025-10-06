@@ -68,16 +68,21 @@ class AppUI:
                 with gr.Row(equal_height=True):
                     with gr.Column(scale=9):
                         file_vid_input = inputs['file_input']  # type: ignore
-                        vid_frame_prompter = inputs['frame_prompter']  # type: ignore
-                        sld_frame_selector = inputs['frame_slider']  # type: ignore
+                        # type: ignore
+                        vid_frame_prompter = inputs['frame_prompter']
+                        # type: ignore
+                        sld_frame_selector = inputs['frame_slider']
                         img_preview = inputs['preview_image']  # type: ignore
 
                     with gr.Column(scale=1):
                         dd_models = inputs['model_dropdown']  # type: ignore
-                        dd_filter_mode = inputs['filter_dropdown']  # type: ignore
-                        cp_color_picker = inputs['color_picker']  # type: ignore
+                        # type: ignore
+                        dd_filter_mode = inputs['filter_dropdown']
+                        # type: ignore
+                        cp_color_picker = inputs['color_picker']
                         nb_pixel_size = inputs['pixel_size']  # type: ignore
-                        dd_output_mime_type = inputs['output_format']  # type: ignore
+                        # type: ignore
+                        dd_output_mime_type = inputs['output_format']
                         cb_invert_mask = inputs['invert_mask']  # type: ignore
                         btn_generate_preview = gr.Button(_("GENERATE PREVIEW"))
 
@@ -162,7 +167,8 @@ class AppUI:
 
                 with gr.Column(scale=5):
                     img_input = inputs['image_input']  # type: ignore
-                    img_input_prompter = inputs['image_prompter']  # type: ignore
+                    # type: ignore
+                    img_input_prompter = inputs['image_prompter']
 
                 with gr.Column(scale=5):
                     dd_input_modes = inputs['mode_dropdown']  # type: ignore
@@ -178,7 +184,8 @@ class AppUI:
                             mask_hparams
                         )
 
-                    cb_multimask_output = inputs['multimask_output']  # type: ignore
+                    # type: ignore
+                    cb_multimask_output = inputs['multimask_output']
 
             with gr.Row():
                 btn_generate = gr.Button(_("GENERATE PSD"), variant="primary")
