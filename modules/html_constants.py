@@ -2,10 +2,10 @@
 DEFAULT_THEME = "jhj0517/smooth_slate_primary_button_color"
 
 HEADER = """
-## [sam2-playground](https://github.com/jhj0517/sam2-playground)
+## [sam2-playground](https://github.com/dotkaio/imagepulate)
 
 <div>
-    <a href="https://github.com/jhj0517/sam2-playground/blob/master/docs/PROMPT_GUIDE.md#image-prompter">
+    <a href="https://github.com/dotkaio/imagepulate/blob/master/docs/PROMPT_GUIDE.md#image-prompter">
         <img src="https://img.shields.io/badge/GitHub-Wiki-blue?logo=github" alt="Github Wiki" style="display:inline-block;">
     </a>
     <a href="https://colab.research.google.com/github/jhj0517/sam2-playground/blob/master/notebooks/sam2_playground.ipynb">

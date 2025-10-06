@@ -1,7 +1,6 @@
 """Configuration manager for loading and managing application configs."""
 
 import os
-import yaml
 from typing import Dict, Any, Optional
 from modules.paths import SAM2_CONFIGS_DIR
 from modules.exceptions import ConfigurationError
@@ -31,6 +30,14 @@ class ConfigManager:
 
     def _load_configs(self) -> None:
         """Load all configuration files."""
+        try:
+            import yaml
+        except ImportError:
+            raise ConfigurationError(
+                "PyYAML is required for configuration management. "
+                "Install it with: pip install PyYAML"
+            )
+        
         try:
             # Load default hyperparameters
             default_hparam_path = os.path.join(

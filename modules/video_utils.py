@@ -114,7 +114,7 @@ def get_video_info(vid_input: str) -> VideoInfo:
             if 'Stream #0:0' in line and 'Video:' in line:
                 fps_match = re.search(r'(\d+(?:\.\d+)?) fps', line)
                 if fps_match:
-                    frame_rate = float(fps_match.group(1))
+                    frame_rate = int(float(fps_match.group(1)))
 
                 codec_match = re.search(r'Video: (\w+)', line)
                 if codec_match:
@@ -157,7 +157,7 @@ def create_video_from_frames(
     Create a video from frames and save it to the output_path. This needs FFmpeg installed.
     """
     if not os.path.exists(frames_dir):
-        raise "frames_dir does not exist"
+        raise RuntimeError("frames_dir does not exist")
 
     if output_dir is None:
         output_dir = TEMP_OUT_DIR

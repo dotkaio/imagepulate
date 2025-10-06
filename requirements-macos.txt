@@ -3,7 +3,7 @@ torchvision
 pytest
 wheel
 gradio-i18n
-gradio==4.44.1
+gradio==4.44.0
 gradio-image-prompter
 opencv-python
 pycocotools

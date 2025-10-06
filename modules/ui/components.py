@@ -41,6 +41,9 @@ class UIComponents:
         """
         if hparams is None:
             hparams = self.mask_hparams
+        
+        if hparams is None:
+            raise ValueError("Mask hyperparameters are not configured")
 
         return [
             gr.Number(
@@ -236,7 +239,6 @@ class UIComponents:
                 label=_("Output images will be shown here")
             ),
             'file_output': gr.File(
-                label=_("Generated psd file"),
-                scale=9
+                label=_("Generated psd file")
             )
         }

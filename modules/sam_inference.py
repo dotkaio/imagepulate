@@ -7,14 +7,15 @@ import os
 from datetime import datetime
 import numpy as np
 import gradio as gr
-from gradio_i18n import Translate, gettext as _
+from gradio_i18n import gettext as _
 
 from modules.model_downloader import (
     AVAILABLE_MODELS, DEFAULT_MODEL_TYPE,
     is_sam_exist,
     download_sam_model_url
 )
-from modules.paths import (MODELS_DIR, TEMP_OUT_DIR, TEMP_DIR, MODEL_CONFIGS_WEBUI_PATH, MODEL_CONFIGS, OUTPUT_DIR)
+from modules.paths import (MODELS_DIR, TEMP_OUT_DIR,
+                           TEMP_DIR, MODEL_CONFIGS, OUTPUT_DIR)
 from modules.constants import (BOX_PROMPT_MODE, AUTOMATIC_MODE, COLOR_FILTER, PIXELIZE_FILTER, IMAGE_FILE_EXT,
                                TRANSPARENT_VIDEO_FILE_EXT, TRANSPARENT_COLOR_FILTER)
 from modules.mask_utils import (
@@ -71,8 +72,10 @@ class SamInference:
         model_path = os.path.join(self.model_dir, filename)
 
         if not is_sam_exist(model_dir=self.model_dir, model_type=model_type):
-            logger.info(f"No SAM2 model found, downloading {model_type} model...")
-            download_sam_model_url(model_dir=self.model_dir, model_type=model_type)
+            logger.info(
+                f"No SAM2 model found, downloading {model_type} model...")
+            download_sam_model_url(
+                model_dir=self.model_dir, model_type=model_type)
         logger.info(f"Applying configs to {model_type} model..")
 
         if load_video_predictor:
@@ -85,7 +88,8 @@ class SamInference:
                 )
                 return
             except Exception as e:
-                logger.exception("Error while loading SAM2 model for video predictor")
+                logger.exception(
+                    "Error while loading SAM2 model for video predictor")
 
         try:
             self.video_predictor = None
@@ -122,11 +126,15 @@ class SamInference:
         if self.video_info.has_sound:
             extract_sound(vid_input, frames_temp_dir)
 
-        if self.video_inference_state is not None:
+        if self.video_inference_state is not None and self.video_predictor is not None:
             self.video_predictor.reset_state(self.video_inference_state)
             self.video_inference_state = None
 
-        self.video_inference_state = self.video_predictor.init_state(video_path=frames_temp_dir)
+        if self.video_predictor is None:
+            raise RuntimeError("Video predictor failed to load")
+
+        self.video_inference_state = self.video_predictor.init_state(
+            video_path=frames_temp_dir)
 
     def generate_mask(self,
                       image: np.ndarray,
@@ -149,6 +157,10 @@ class SamInference:
         if self.model is None or self.current_model_type != model_type:
             self.current_model_type = model_type
             self.load_model(model_type=model_type)
+
+        if self.model is None:
+            raise RuntimeError("Model failed to load")
+
         self.mask_generator = SAM2AutomaticMaskGenerator(
             model=self.model,
             **params
@@ -193,6 +205,10 @@ class SamInference:
         if self.model is None or self.current_model_type != model_type:
             self.current_model_type = model_type
             self.load_model(model_type=model_type)
+
+        if self.model is None:
+            raise RuntimeError("Model failed to load")
+
         self.image_predictor = SAM2ImagePredictor(sam_model=self.model)
         self.image_predictor.set_image(image)
 
@@ -204,11 +220,15 @@ class SamInference:
                 multimask_output=params["multimask_output"],
             )
         except Exception as e:
-            logger.exception(f"Error while predicting image with prompt: {str(e)}")
+            logger.exception(
+                f"Error while predicting image with prompt: {str(e)}")
             raise RuntimeError(f"Failed to predict image with prompt") from e
 
         if invert_mask:
-            masks = invert_masks(masks)
+            formatted_masks = self.format_to_auto_result(masks)
+            inverted_masks = [{'segmentation': invert_masks(mask['segmentation']),
+                              'area': mask['area']} for mask in formatted_masks]
+            masks = np.array([mask['segmentation'] for mask in inverted_masks])
 
         return masks, scores, logits
 
@@ -238,7 +258,9 @@ class SamInference:
 
         if (self.video_predictor is None or
                 inference_state is None and self.video_inference_state is None):
-            logger.exception("Error while predicting frame from video, load video predictor first")
+            logger.exception(
+                "Error while predicting frame from video, load video predictor first")
+            raise RuntimeError("Video predictor not initialized")
 
         if inference_state is None:
             inference_state = self.video_inference_state
@@ -253,8 +275,10 @@ class SamInference:
                 box=box
             )
         except Exception as e:
-            logger.exception(f"Error while predicting frame with prompt: {str(e)}")
-            raise RuntimeError(f"Failed to predicting frame with prompt") from e
+            logger.exception(
+                f"Error while predicting frame with prompt: {str(e)}")
+            raise RuntimeError(
+                f"Failed to predicting frame with prompt") from e
 
         return out_frame_idx, out_obj_ids, out_mask_logits
 
@@ -273,7 +297,14 @@ class SamInference:
                 the np.ndarray mask output.
         """
         if inference_state is None and self.video_inference_state is None:
-            logger.exception("Error while propagating in video, load video predictor first")
+            logger.exception(
+                "Error while propagating in video, load video predictor first")
+            raise RuntimeError("Video predictor not initialized")
+
+        if self.video_predictor is None:
+            logger.exception(
+                "Error while propagating in video, video predictor is None")
+            raise RuntimeError("Video predictor not initialized")
 
         if inference_state is None:
             inference_state = self.video_inference_state
@@ -324,8 +355,9 @@ class SamInference:
             np.ndarray: The filtered image output.
         """
         if self.video_predictor is None or self.video_inference_state is None:
-            logger.exception("Error while adding filter to preview, load video predictor first")
-            raise f"Error while adding filter to preview"
+            logger.exception(
+                "Error while adding filter to preview, load video predictor first")
+            raise RuntimeError("Error while adding filter to preview")
 
         image, prompt = image_prompt_input_data["image"], image_prompt_input_data["points"]
         if not prompt:
@@ -353,16 +385,19 @@ class SamInference:
             box=box
         )
         masks = (logits[0] > 0.0).cpu().numpy()
-        if invert_mask:
-            masks = invert_masks(masks)
-
         generated_masks = self.format_to_auto_result(masks)
 
+        if invert_mask:
+            generated_masks = [{'segmentation': invert_masks(mask['segmentation'])[0],
+                                'area': mask['area']} for mask in generated_masks]
+
         if filter_mode == COLOR_FILTER:
-            image = create_solid_color_mask_image(image, generated_masks, color_hex)
+            image = create_solid_color_mask_image(
+                image, generated_masks, color_hex if color_hex is not None else "#000000")
 
         elif filter_mode == PIXELIZE_FILTER:
-            image = create_mask_pixelized_image(image, generated_masks, pixel_size)
+            image = create_mask_pixelized_image(
+                image, generated_masks, pixel_size if pixel_size is not None else 16)
 
         else:
             image = create_alpha_mask_image(image, generated_masks)
@@ -397,7 +432,8 @@ class SamInference:
         """
 
         if self.video_predictor is None or self.video_inference_state is None:
-            logger.exception("Error while adding filter to preview, load video predictor first")
+            logger.exception(
+                "Error while adding filter to preview, load video predictor first")
             raise RuntimeError("Error while adding filter to preview")
 
         if output_mime_type is None:
@@ -432,27 +468,37 @@ class SamInference:
             box=box,
         )
 
-        video_segments = self.propagate_in_video(inference_state=self.video_inference_state)
+        video_segments = self.propagate_in_video(
+            inference_state=self.video_inference_state)
         for frame_index, info in video_segments.items():
             orig_image, masks = info["image"], info["mask"]
             if invert_mask:
-                masks = invert_masks(masks)
-            masks = self.format_to_auto_result(masks)
+                inverted = invert_masks(masks)
+                masks = np.array([inverted[0]]) if isinstance(
+                    inverted, np.ndarray) and inverted.ndim == 2 else inverted
+            if isinstance(masks, np.ndarray):
+                masks = self.format_to_auto_result(masks)
 
             if filter_mode == COLOR_FILTER:
-                filtered_image = create_solid_color_mask_image(orig_image, masks, color_hex)
+                filtered_image = create_solid_color_mask_image(
+                    orig_image, masks, color_hex if color_hex is not None else "#000000")
 
             elif filter_mode == PIXELIZE_FILTER:
-                filtered_image = create_mask_pixelized_image(orig_image, masks, pixel_size)
+                filtered_image = create_mask_pixelized_image(
+                    orig_image, masks, pixel_size if pixel_size is not None else 16)
 
             else:
                 filtered_image = create_alpha_mask_image(orig_image, masks)
 
-            save_image(image=filtered_image, output_dir=TEMP_OUT_DIR, use_alpha=use_alpha)
+            save_image(image=filtered_image,
+                       output_dir=TEMP_OUT_DIR, use_alpha=use_alpha)
 
         if len(video_segments) == 1:
             out_image = save_image(image=filtered_image, output_dir=output_dir)
             return None, out_image
+
+        if self.video_info is None:
+            raise RuntimeError("Video info not initialized")
 
         out_video = create_video_from_frames(
             frames_dir=TEMP_OUT_DIR,
@@ -535,7 +581,8 @@ class SamInference:
             generated_masks = self.format_to_auto_result(predicted_masks)
 
         save_psd_with_masks(image, generated_masks, output_path)
-        mask_combined_image = create_mask_combined_images(image, generated_masks)
+        mask_combined_image = create_mask_combined_images(
+            image, generated_masks)
         gallery = create_mask_gallery(image, generated_masks)
         gallery = [mask_combined_image] + gallery
 
@@ -549,7 +596,8 @@ class SamInference:
         place_holder = 0
         if len(masks.shape) <= 3:
             masks = np.expand_dims(masks, axis=0)
-        result = [{"segmentation": mask[0], "area": place_holder} for mask in masks]
+        result = [{"segmentation": mask[0], "area": place_holder}
+                  for mask in masks]
         return result
 
     @staticmethod

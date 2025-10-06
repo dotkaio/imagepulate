@@ -1,3 +1,5 @@
+"""File utility functions."""
+
 import os
 from PIL import Image
 from typing import Optional, Union
