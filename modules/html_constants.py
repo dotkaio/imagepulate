@@ -1,4 +1,5 @@
-DEFAULT_THEME = "jhj0517/smooth_slate_primary_button_color"  # [jhj0517/boxy_violet_primary_button_variant, jhj0517/smooth_slate_primary_button_color ]
+# [jhj0517/boxy_violet_primary_button_variant, jhj0517/smooth_slate_primary_button_color ]
+DEFAULT_THEME = "jhj0517/smooth_slate_primary_button_color"
 
 HEADER = """
 ## [sam2-playground](https://github.com/jhj0517/sam2-playground)

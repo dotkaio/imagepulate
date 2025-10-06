@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 
 from modules.logger_util import get_logger
-from modules.constants import SOUND_FILE_EXT, VIDEO_FILE_EXT, IMAGE_FILE_EXT, TRANSPARENT_VIDEO_FILE_EXT
+from modules.constants import SOUND_FILE_EXT, IMAGE_FILE_EXT
 from modules.paths import TEMP_DIR, TEMP_OUT_DIR
 
 logger = get_logger()
@@ -47,7 +47,8 @@ def extract_frames(
     try:
         subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
-        logger.exception("Error occurred while extracting frames from the video")
+        logger.exception(
+            "Error occurred while extracting frames from the video")
         raise RuntimeError(f"An error occurred: {str(e)}")
 
     return get_frames_from_dir(output_temp_dir)
@@ -61,7 +62,8 @@ def extract_sound(
     Extract audio from a video file and save it as a separate sound file. This needs FFmpeg installed.
     """
     if Path(vid_input).suffix == ".gif":
-        logger.info("Sound extracting process has passed because gif has no sound")
+        logger.info(
+            "Sound extracting process has passed because gif has no sound")
         return None
 
     os.makedirs(output_temp_dir, exist_ok=True)
@@ -78,7 +80,8 @@ def extract_sound(
     try:
         subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
-        logger.exception("Error occurred while extracting sound from the video")
+        logger.exception(
+            "Error occurred while extracting sound from the video")
 
     return output_path
 
@@ -118,7 +121,8 @@ def get_video_info(vid_input: str) -> VideoInfo:
                     codec = codec_match.group(1)
 
             elif 'Duration:' in line:
-                duration_match = re.search(r'Duration: (\d{2}):(\d{2}):(\d{2}\.\d{2})', line)
+                duration_match = re.search(
+                    r'Duration: (\d{2}):(\d{2}):(\d{2}\.\d{2})', line)
                 if duration_match:
                     h, m, s = map(float, duration_match.groups())
                     duration = h * 3600 + m * 60 + s

@@ -3,6 +3,7 @@
 ## File Count Comparison
 
 ### Before
+
 ```
 app.py (310 lines)
 modules/
@@ -16,6 +17,7 @@ modules/
 ```
 
 ### After
+
 ```
 app.py (77 lines) ⬇️ 75% reduction!
 modules/
@@ -52,27 +54,27 @@ class App:
         with open(config_path, 'r') as f:
             self.default_hparams = yaml.safe_load(f)
         # More setup...
-    
+
     def mask_generation_parameters(self, hparams):
         # 30+ lines of UI component creation
         return [gr.Number(...), gr.Slider(...), ...]
-    
+
     @staticmethod
     def on_mode_change(mode):
         # Event handler logic
         return [...]
-    
+
     @staticmethod
     def on_filter_mode_change(mode):
         # Event handler logic
         return [...]
-    
+
     def on_video_model_change(self, model_type, vid_input, progress):
         # 25+ lines of event handler logic
         return [...]
-    
+
     # More event handlers...
-    
+
     def launch(self):
         # 150+ lines of UI layout code mixed with event wiring
         with self.demo:
@@ -86,6 +88,7 @@ class App:
 ```
 
 ❌ **Problems:**
+
 - Everything in one file
 - Mixed concerns (UI, events, business logic)
 - Hard to test
@@ -100,15 +103,15 @@ class App:
 # app.py (77 lines)
 class App:
     """Main application class - simplified orchestrator."""
-    
+
     def __init__(self, args):
         # Initialize SAM inference engine
         self.sam_inf = SamInference(...)
-        
+
         # Create UI
         self.ui = AppUI(args, self.sam_inf)
         self.demo = self.ui.create_interface()
-    
+
     def launch(self):
         # Launch the Gradio application
         self.demo.queue().launch(...)
@@ -118,20 +121,20 @@ class App:
 # modules/ui/app_ui.py
 class AppUI:
     """Handles Gradio UI creation and layout."""
-    
+
     def __init__(self, args, sam_inference):
         self.config_manager = get_config_manager()
         self.ui_components = UIComponents(...)
         self.event_handlers = EventHandlers(...)
-    
+
     def create_video_segmentation_tab(self):
         # Clean tab creation using components
         inputs = self.ui_components.create_video_segmentation_inputs(...)
         # Wire up events
-        
+
     def create_layer_divider_tab(self):
         # Clean tab creation using components
-        
+
     def create_interface(self):
         # Assemble complete interface
 ```
@@ -140,13 +143,13 @@ class AppUI:
 # modules/ui/components.py
 class UIComponents:
     """Factory class for creating Gradio components."""
-    
+
     def create_mask_parameters(self, hparams):
         # Creates reusable mask parameter components
-        
+
     def create_video_segmentation_inputs(self):
         # Returns dict of input components
-        
+
     def create_layer_divider_inputs(self):
         # Returns dict of input components
 ```
@@ -155,13 +158,13 @@ class UIComponents:
 # modules/ui/event_handlers.py
 class EventHandlers:
     """Handles all Gradio event callbacks."""
-    
+
     def on_mode_change(self, mode):
         # Clean, testable event handler
-        
+
     def on_filter_mode_change(self, mode):
         # Clean, testable event handler
-        
+
     def on_video_model_change(self, model_type, vid_input, progress):
         # Clean, testable event handler
 ```
@@ -170,10 +173,10 @@ class EventHandlers:
 # modules/utils/config_manager.py
 class ConfigManager:
     """Singleton configuration manager."""
-    
+
     def __init__(self):
         self._load_configs()
-    
+
     @property
     def mask_hparams(self):
         return self.default_hparams.get("mask_hparams", {})
@@ -189,6 +192,7 @@ class ModelLoadError(ImagepulateError):
 ```
 
 ✅ **Benefits:**
+
 - Clear separation of concerns
 - Each module has one responsibility
 - Easy to test
@@ -201,26 +205,28 @@ class ModelLoadError(ImagepulateError):
 
 ## Responsibilities Matrix
 
-| Concern | Before | After |
-|---------|--------|-------|
-| **UI Layout** | `App.launch()` | `AppUI.create_*_tab()` |
-| **Component Creation** | `App.mask_generation_parameters()` | `UIComponents.create_*()` |
-| **Event Handling** | `App.on_*_change()` | `EventHandlers.on_*_change()` |
-| **Configuration** | Inline YAML loading | `ConfigManager` singleton |
-| **Error Handling** | `raise RuntimeError()` | Custom exception classes |
-| **Orchestration** | Mixed with everything | `App` class (clean) |
+| Concern                | Before                             | After                         |
+| ---------------------- | ---------------------------------- | ----------------------------- |
+| **UI Layout**          | `App.launch()`                     | `AppUI.create_*_tab()`        |
+| **Component Creation** | `App.mask_generation_parameters()` | `UIComponents.create_*()`     |
+| **Event Handling**     | `App.on_*_change()`                | `EventHandlers.on_*_change()` |
+| **Configuration**      | Inline YAML loading                | `ConfigManager` singleton     |
+| **Error Handling**     | `raise RuntimeError()`             | Custom exception classes      |
+| **Orchestration**      | Mixed with everything              | `App` class (clean)           |
 
 ---
 
 ## Dependency Graph
 
 ### Before
+
 ```
 app.py
   └── Everything (310 lines of spaghetti)
 ```
 
 ### After
+
 ```
 app.py (77 lines)
   └── AppUI
@@ -237,12 +243,14 @@ exceptions.py (standalone)
 ## Testing Strategy
 
 ### Before
+
 ```python
 # Hard to test - everything is coupled
 # Need to mock Gradio, SAM, configs, etc. all at once
 ```
 
 ### After
+
 ```python
 # Easy to test - isolated units
 
@@ -268,13 +276,13 @@ def test_create_mask_parameters():
 
 ## Metrics
 
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| **Lines in app.py** | 310 | 77 | ⬇️ 75% |
-| **Number of files** | 1 main | 7 organized | ⬆️ Better structure |
-| **Testable units** | 1 monolith | 15+ methods | ⬆️ 15x |
-| **Cyclomatic complexity** | High | Low | ⬇️ Simpler |
-| **Code reusability** | None | High | ⬆️ Components reusable |
+| Metric                    | Before     | After       | Improvement            |
+| ------------------------- | ---------- | ----------- | ---------------------- |
+| **Lines in app.py**       | 310        | 77          | ⬇️ 75%                 |
+| **Number of files**       | 1 main     | 7 organized | ⬆️ Better structure    |
+| **Testable units**        | 1 monolith | 15+ methods | ⬆️ 15x                 |
+| **Cyclomatic complexity** | High       | Low         | ⬇️ Simpler             |
+| **Code reusability**      | None       | High        | ⬆️ Components reusable |
 
 ---
 
@@ -307,6 +315,7 @@ Because of this refactoring, the following improvements are now easier:
 ## Developer Experience
 
 ### Before
+
 ```
 "Where is the video segmentation tab code?"
 → Search through 310 lines of app.py
@@ -315,6 +324,7 @@ Because of this refactoring, the following improvements are now easier:
 ```
 
 ### After
+
 ```
 "Where is the video segmentation tab code?"
 → Open modules/ui/app_ui.py

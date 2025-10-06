@@ -6,7 +6,7 @@ from gradio_image_prompter import ImagePrompter
 from typing import Dict, List, Optional, Any
 
 from modules.constants import (
-    AUTOMATIC_MODE, BOX_PROMPT_MODE, PIXELIZE_FILTER, 
+    AUTOMATIC_MODE, BOX_PROMPT_MODE, PIXELIZE_FILTER,
     COLOR_FILTER, TRANSPARENT_COLOR_FILTER, TRANSPARENT_VIDEO_FILE_EXT,
     SUPPORTED_VIDEO_FILE_EXT, DEFAULT_COLOR, DEFAULT_PIXEL_SIZE,
     IMAGE_FILE_EXT, VIDEO_FILE_EXT
@@ -16,11 +16,11 @@ from modules.model_downloader import DEFAULT_MODEL_TYPE
 
 class UIComponents:
     """Factory class for creating Gradio UI components."""
-    
+
     def __init__(self, config_manager, available_models: List[str]):
         """
         Initialize UI components factory.
-        
+
         Args:
             config_manager: Configuration manager instance
             available_models: List of available model names
@@ -28,20 +28,20 @@ class UIComponents:
         self.config_manager = config_manager
         self.available_models = available_models
         self.mask_hparams = config_manager.mask_hparams
-    
+
     def create_mask_parameters(self, hparams: Optional[Dict] = None) -> List[gr.components.Component]:
         """
         Create mask generation parameter components.
-        
+
         Args:
             hparams: Optional hyperparameters dictionary
-            
+
         Returns:
             List of Gradio components for mask parameters
         """
         if hparams is None:
             hparams = self.mask_hparams
-        
+
         return [
             gr.Number(
                 label="points_per_side",
@@ -96,14 +96,14 @@ class UIComponents:
                 value=hparams["use_m2m"]
             )
         ]
-    
+
     def create_video_segmentation_inputs(self, default_filter: str) -> Dict[str, gr.components.Component]:
         """
         Create input components for video segmentation tab.
-        
+
         Args:
             default_filter: Default filter mode
-            
+
         Returns:
             Dictionary of named Gradio components
         """
@@ -136,7 +136,8 @@ class UIComponents:
                 label=_("Filter Modes"),
                 interactive=True,
                 value=default_filter,
-                choices=[PIXELIZE_FILTER, COLOR_FILTER, TRANSPARENT_COLOR_FILTER]
+                choices=[PIXELIZE_FILTER, COLOR_FILTER,
+                         TRANSPARENT_COLOR_FILTER]
             ),
             'color_picker': gr.ColorPicker(
                 label=_("Solid Color"),
@@ -153,21 +154,21 @@ class UIComponents:
             ),
             'output_format': gr.Dropdown(
                 label=_("Video File Format"),
-                choices=TRANSPARENT_VIDEO_FILE_EXT if default_filter == TRANSPARENT_COLOR_FILTER 
-                        else SUPPORTED_VIDEO_FILE_EXT,
-                value=TRANSPARENT_VIDEO_FILE_EXT[0] if default_filter == TRANSPARENT_COLOR_FILTER 
-                      else SUPPORTED_VIDEO_FILE_EXT[0]
+                choices=TRANSPARENT_VIDEO_FILE_EXT if default_filter == TRANSPARENT_COLOR_FILTER
+                else SUPPORTED_VIDEO_FILE_EXT,
+                value=TRANSPARENT_VIDEO_FILE_EXT[0] if default_filter == TRANSPARENT_COLOR_FILTER
+                else SUPPORTED_VIDEO_FILE_EXT[0]
             ),
             'invert_mask': gr.Checkbox(
                 label=_("invert mask"),
                 value=self.mask_hparams["invert_mask"]
             )
         }
-    
+
     def create_video_segmentation_outputs(self) -> Dict[str, gr.components.Component]:
         """
         Create output components for video segmentation tab.
-        
+
         Returns:
             Dictionary of named Gradio components
         """
@@ -182,14 +183,14 @@ class UIComponents:
                 scale=9
             )
         }
-    
+
     def create_layer_divider_inputs(self, default_mode: str) -> Dict[str, gr.components.Component]:
         """
         Create input components for layer divider tab.
-        
+
         Args:
             default_mode: Default input mode
-            
+
         Returns:
             Dictionary of named Gradio components
         """
@@ -222,11 +223,11 @@ class UIComponents:
                 value=self.mask_hparams["multimask_output"]
             )
         }
-    
+
     def create_layer_divider_outputs(self) -> Dict[str, gr.components.Component]:
         """
         Create output components for layer divider tab.
-        
+
         Returns:
             Dictionary of named Gradio components
         """

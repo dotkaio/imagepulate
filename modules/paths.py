@@ -39,4 +39,3 @@ for dir_path in [MODELS_DIR,
                  TEMP_DIR,
                  TEMP_OUT_DIR]:
     os.makedirs(dir_path, exist_ok=True)
-
